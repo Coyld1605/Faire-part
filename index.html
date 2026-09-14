@@ -42,17 +42,17 @@
   #music-toggle{
     position:fixed; top:16px; right:16px; z-index:999;
     width:44px; height:44px; border-radius:50%;
-    background: rgba(163,51,20,.68); color:#fff; border:1px solid rgba(255,255,255,.4);
+    background: rgba(163,51,20,.4); color:#fff; border:1px solid rgba(255,255,255,.4);
     font-size:19px; display:flex; align-items:center; justify-content:center;
     cursor:pointer; backdrop-filter: blur(4px);
   }
-  #music-toggle.playing{ background: rgba(163,51,20,.9); }
+  #music-toggle.playing{ background: rgba(163,51,20,.6); }
 
   .photo-section{ padding:0; }
   .photo-section img{
     width:100%; height:auto; display:block;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 46px, black calc(100% - 46px), transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0, black 46px, black calc(100% - 46px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.4) 90px, black 190px, black calc(100% - 190px), rgba(0,0,0,.4) calc(100% - 90px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.4) 90px, black 190px, black calc(100% - 190px), rgba(0,0,0,.4) calc(100% - 90px), transparent 100%);
   }
 
   /* ===== Titre, collé à la photo F1 ===== */
@@ -61,7 +61,7 @@
   #title h1 .zh-perm{
     display:block;
     font-family:'Ma Shan Zheng', cursive;
-    font-size: clamp(90px, 46vw, 220px);
+    font-size: clamp(81px, 41.4vw, 198px);
     white-space: nowrap;
     line-height:1;
     color: var(--red-deep);
