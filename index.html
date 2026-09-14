@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Martine &amp; Félix — 14 novembre 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   :root{
     --blue-light: #D2BD91;
     --blue-lighter: #E3D2AE;
     --blue-pale: #F0E6D2;
-    --red-deep: #A8541A;
-    --red-mid: #8C4014;
+    --red-deep: #C1401A;
+    --red-mid: #A33314;
     --cream: #F3EADA;
     --ink: #2C2116;
     --neon: #E8791D;
@@ -41,10 +42,11 @@
   #music-toggle{
     position:fixed; top:16px; right:16px; z-index:999;
     width:44px; height:44px; border-radius:50%;
-    background:rgba(35,48,62,.85); color:#fff; border:1px solid rgba(255,255,255,.4);
-    font-size:18px; display:flex; align-items:center; justify-content:center;
+    background: rgba(163,51,20,.68); color:#fff; border:1px solid rgba(255,255,255,.4);
+    font-size:19px; display:flex; align-items:center; justify-content:center;
     cursor:pointer; backdrop-filter: blur(4px);
   }
+  #music-toggle.playing{ background: rgba(163,51,20,.9); }
 
   .photo-section{ padding:0; }
   .photo-section img{
@@ -56,9 +58,16 @@
   /* ===== Titre, collé à la photo F1 ===== */
   #title{ padding:26px 28px 10px; text-align:center; }
   #title h1{ font-size:32px; color:var(--red-deep); line-height:1.25; margin-bottom:14px; }
-  #title h1 .zh-perm{ display:block; font-size:40px; margin-bottom:8px; }
-  #title h1 .zh-names{ display:block; font-size:36px; margin-top:6px; font-weight:500; }
-  #title h1 .l1{ display:block; font-size:40px; letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
+  #title h1 .zh-perm{
+    display:block;
+    font-family:'Ma Shan Zheng', cursive;
+    font-size: clamp(160px, 100vw, 400px);
+    line-height:.95;
+    color: var(--red-deep);
+    margin-bottom:0px;
+  }
+  #title h1 .zh-names{ display:block; font-family:'Ma Shan Zheng', cursive; font-size:36px; margin-top:6px; font-weight:400; }
+  #title h1 .l1{ display:block; font-family:'Great Vibes', cursive; font-style:italic; font-size:42px; font-weight:400; letter-spacing:1px; margin-bottom:2px; }
   #title h1 .l2{ display:block; font-size:22.4px; }
   .lang-row{ display:flex; gap:10px; justify-content:center; }
   .lang-btn{
@@ -75,7 +84,7 @@
   #date-lieu .addr{ font-size:13px; color:#6b6259; }
 
   /* ===== Compte à rebours en encadré ===== */
-  #countdown{ padding:8px 28px 20px; }
+  #countdown{ padding:8px 28px 20px; background: var(--cream); }
   .cd-card{
     width:100%; background:#fff; border:1px solid var(--blue-light); border-radius:14px;
     padding:18px 16px; text-align:center; box-shadow:0 4px 14px rgba(35,48,62,.08);
@@ -96,7 +105,8 @@
   .field{ margin-top:12px; }
   .field label{ font-size:12px; color:#6b6259; display:block; margin-bottom:5px; }
   .counter{ display:flex; align-items:center; gap:14px; }
-  .counter button{ width:30px; height:30px; border-radius:50%; border:1px solid var(--blue-light); background:#fff; font-size:15px; }
+  .counter button{ width:30px; height:30px; border-radius:50%; border:1px solid var(--blue-light); background:#fff; font-size:15px; cursor:pointer; }
+  .counter button:disabled{ opacity:.35; cursor:not-allowed; }
   select, textarea, input[type="text"]{ width:100%; border:1px solid #ddd4c8; border-radius:8px; padding:9px; font-family:inherit; font-size:13px; background:#fff; }
   .submit-btn{ margin-top:16px; background: var(--red-deep); color:#fff; border:none; padding:12px; border-radius:22px; font-size:14px; cursor:pointer; }
   .submit-btn:disabled{ opacity:.45; cursor:not-allowed; }
@@ -130,8 +140,6 @@
 
   /* ===== Galerie 2x2 ===== */
   #gallery{ padding:10px 28px 22px; }
-  .gallery-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; width:100%; }
-  .gallery-grid .ph{ aspect-ratio:4/3; border-radius:8px; background-size:cover; background-position:center; }
 
   /* ===== Carte Google Maps ===== */
   #maps{ text-align:center; padding:10px 28px 24px; }
@@ -160,14 +168,14 @@
 </head>
 <body>
 
-<button id="music-toggle" title="Musique">🔇</button>
+<button id="music-toggle" title="Musique">🎵</button>
 <audio id="bg-music" src="musique.mp3" loop></audio>
 
 <section id="title">
   <h1 class="script">
     <span class="zh-perm">订婚</span>
     <span class="l1" data-fr="Fiançailles">Fiançailles</span>
-    <span class="l2" data-fr="Martine DONG &amp; Felix WEI" data-zh="Martine DONG &amp; Felix WEI">Martine DONG &amp; Felix WEI</span>
+    <span class="l2" data-fr="Martine &amp; Félix" data-zh="Martine &amp; Félix">Martine &amp; Félix</span>
     <span class="zh-names">董嘉盈 &amp; 魏朔楠</span>
   </h1>
   <div class="lang-row">
@@ -273,13 +281,8 @@
  </div>
 </section>
 
-<section id="gallery">
-  <div class="gallery-grid">
-    <div class="ph" style="background-image:url('img/F3.jpg')"></div>
-    <div class="ph" style="background-image:url('img/F4.jpg')"></div>
-    <div class="ph" style="background-image:url('img/F5.jpg')"></div>
-    <div class="ph" style="background-image:url('img/F6.jpg')"></div>
-  </div>
+<section class="photo-section">
+  <img src="img/F3.jpg" loading="lazy" alt="Martine et Félix">
 </section>
 
 <section id="maps">
@@ -319,16 +322,15 @@
   let guests = 1;
   const guestEl = document.getElementById('guestCount');
   const guestValueEl = document.getElementById('guestCount-value');
-  document.getElementById('guestMinus').addEventListener('click', ()=>{
-    guests = Math.max(1, guests-1);
+  const guestMinusBtn = document.getElementById('guestMinus');
+  const guestPlusBtn = document.getElementById('guestPlus');
+  function setGuests(n){
+    guests = n;
     guestEl.textContent = guests;
     guestValueEl.value = guests;
-  });
-  document.getElementById('guestPlus').addEventListener('click', ()=>{
-    guests = guests+1;
-    guestEl.textContent = guests;
-    guestValueEl.value = guests;
-  });
+  }
+  guestMinusBtn.addEventListener('click', ()=> setGuests(Math.max(1, guests-1)));
+  guestPlusBtn.addEventListener('click', ()=> setGuests(guests+1));
 
   // Choix Oui / Non cliquables
   const presenceInput = document.getElementById('presence-value');
@@ -341,7 +343,17 @@
     btn.addEventListener('click', ()=>{
       document.querySelectorAll('.rsvp-btn[data-choice]').forEach(b=>b.classList.remove('selected'));
       btn.classList.add('selected');
-      presenceInput.value = btn.getAttribute('data-choice');
+      const choice = btn.getAttribute('data-choice');
+      presenceInput.value = choice;
+      if(choice === 'Non'){
+        setGuests(0);
+        guestMinusBtn.disabled = true;
+        guestPlusBtn.disabled = true;
+      } else {
+        guestMinusBtn.disabled = false;
+        guestPlusBtn.disabled = false;
+        setGuests(guests === 0 ? 1 : guests);
+      }
       checkReady();
     });
   });
@@ -366,7 +378,9 @@
       statusEl.className = 'form-status ok';
       form.reset();
       document.querySelectorAll('.rsvp-btn[data-choice]').forEach(b=>b.classList.remove('selected'));
-      guests = 1; guestEl.textContent = 1; guestValueEl.value = 1;
+      setGuests(1);
+      guestMinusBtn.disabled = false;
+      guestPlusBtn.disabled = false;
     } catch(err){
       statusEl.textContent = document.documentElement.lang === 'zh-Hans' ? '发送失败，请重试。' : "Échec de l'envoi, réessayez.";
       statusEl.className = 'form-status err';
@@ -396,11 +410,11 @@
   musicBtn.addEventListener('click', ()=>{
     musicOn = !musicOn;
     if(musicOn){
-      audio.play().catch(()=>{ musicOn = false; musicBtn.textContent = '🔇'; });
-      musicBtn.textContent = '🔊';
+      audio.play().catch(()=>{ musicOn = false; musicBtn.classList.remove('playing'); });
+      musicBtn.classList.add('playing');
     } else {
       audio.pause();
-      musicBtn.textContent = '🔇';
+      musicBtn.classList.remove('playing');
     }
   });
 </script>
