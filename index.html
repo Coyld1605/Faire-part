@@ -90,15 +90,19 @@
   #rsvp{ text-align:left; align-items:stretch; padding:10px 28px 24px; }
   #rsvp h2{ font-family:'Heiti SC','STHeiti','Heiti TC','PingFang SC',sans-serif; font-weight:600; font-size:28px; color:var(--red-deep); align-self:center; }
   #rsvp .q{ align-self:center; font-size:13px; color:#6b6259; margin-bottom:16px; }
-  .rsvp-btn{ width:100%; padding:12px; border-radius:22px; font-size:14px; margin-bottom:8px; border:1px solid var(--red-deep); text-align:center; }
-  .rsvp-btn.yes{ background:var(--red-deep); color:#fff; border:none; }
-  .rsvp-btn.no{ background:transparent; color:var(--red-deep); }
+  .rsvp-btn{ width:100%; padding:12px; border-radius:22px; font-size:14px; margin-bottom:8px; border:1px solid var(--red-deep); text-align:center; background:transparent; color:var(--red-deep); cursor:pointer; transition:background .15s, color .15s; }
+  .rsvp-btn.selected{ background:var(--red-deep); color:#fff; }
+  .rsvp-btn:not(.selected):hover{ background: rgba(168,84,26,.08); }
   .field{ margin-top:12px; }
   .field label{ font-size:12px; color:#6b6259; display:block; margin-bottom:5px; }
   .counter{ display:flex; align-items:center; gap:14px; }
   .counter button{ width:30px; height:30px; border-radius:50%; border:1px solid var(--blue-light); background:#fff; font-size:15px; }
   select, textarea, input[type="text"]{ width:100%; border:1px solid #ddd4c8; border-radius:8px; padding:9px; font-family:inherit; font-size:13px; background:#fff; }
-  .submit-btn{ margin-top:16px; background: var(--red-deep); color:#fff; border:none; padding:12px; border-radius:22px; font-size:14px; }
+  .submit-btn{ margin-top:16px; background: var(--red-deep); color:#fff; border:none; padding:12px; border-radius:22px; font-size:14px; cursor:pointer; }
+  .submit-btn:disabled{ opacity:.45; cursor:not-allowed; }
+  .form-status{ margin-top:10px; text-align:center; font-size:13px; }
+  .form-status.ok{ color:#2f6b2f; }
+  .form-status.err{ color:var(--red-deep); }
 
   /* ===== Calendrier, colonnes régulières ===== */
   #calendar{ text-align:center; padding:10px 28px 22px; }
@@ -202,35 +206,40 @@
 <section id="rsvp">
  <div class="neon-frame">
   <h2>RSVP</h2>
-  <div class="q" data-fr="Serez-vous des nôtres ?" data-zh="您会出席吗？">Serez-vous des nôtres ?</div>
-  <div class="rsvp-btn yes" data-fr="✓ Oui, avec plaisir !" data-zh="✓ 好的，我很乐意！">✓ Oui, avec plaisir !</div>
-  <div class="rsvp-btn no" data-fr="✕ Non, malheureusement" data-zh="✕ 很遗憾，不能出席">✕ Non, malheureusement</div>
-  <div class="field">
+  <form id="rsvp-form" action="https://docs.google.com/forms/d/e/1FAIpQLSdWnMEtNPh_0-xQrKOQCGA4zWtofXBwaUP5tEfD57KlyBjEew/formResponse" method="POST">
+   <div class="q" data-fr="Serez-vous des nôtres ?" data-zh="您会出席吗？">Serez-vous des nôtres ?</div>
+   <input type="hidden" name="entry.2090699889" id="presence-value">
+   <button type="button" class="rsvp-btn" data-choice="Oui" data-fr="✓ Oui, avec plaisir !" data-zh="✓ 好的，我很乐意！">✓ Oui, avec plaisir !</button>
+   <button type="button" class="rsvp-btn" data-choice="Non" data-fr="✕ Non, malheureusement" data-zh="✕ 很遗憾，不能出席">✕ Non, malheureusement</button>
+   <div class="field">
     <label data-fr="Nom et prénom" data-zh="姓名">Nom et prénom</label>
-    <input type="text" data-fr-ph="Votre nom et prénom" data-zh-ph="您的姓名" placeholder="Votre nom et prénom">
-  </div>
-  <div class="field">
+    <input type="text" name="entry.89788213" required data-fr-ph="Votre nom et prénom" data-zh-ph="您的姓名" placeholder="Votre nom et prénom">
+   </div>
+   <div class="field">
     <label data-fr="Nombre d'invités" data-zh="宾客人数">Nombre d'invités</label>
     <div class="counter">
-      <button type="button">−</button>
+      <button type="button" id="guestMinus">−</button>
       <span id="guestCount">1</span>
-      <button type="button">+</button>
+      <button type="button" id="guestPlus">+</button>
     </div>
-  </div>
-  <div class="field">
+    <input type="hidden" name="entry.2098558013" id="guestCount-value" value="1">
+   </div>
+   <div class="field">
     <label data-fr="Régime alimentaire" data-zh="饮食要求">Régime alimentaire</label>
-    <select>
+    <select name="entry.1538742537">
       <option selected data-fr="Aucune" data-zh="无">Aucune</option>
       <option data-fr="Vegan" data-zh="纯素食">Vegan</option>
       <option data-fr="Sans gluten" data-zh="无麸质">Sans gluten</option>
       <option data-fr="Allergie, à préciser ci-dessous" data-zh="过敏，请在下方注明">Allergie, à préciser ci-dessous</option>
     </select>
-  </div>
-  <div class="field">
+   </div>
+   <div class="field">
     <label data-fr="Un petit mot ?" data-zh="留言">Un petit mot ?</label>
-    <textarea rows="3" data-fr-ph="Laissez-nous un message…" data-zh-ph="给我们留言…" placeholder="Laissez-nous un message…"></textarea>
-  </div>
-  <button class="submit-btn" data-fr="✈ Confirmer ma réponse" data-zh="✈ 确认回复">✈ Confirmer ma réponse</button>
+    <textarea name="entry.1609721395" rows="3" data-fr-ph="Laissez-nous un message…" data-zh-ph="给我们留言…" placeholder="Laissez-nous un message…"></textarea>
+   </div>
+   <button type="submit" class="submit-btn" id="rsvp-submit" disabled data-fr="✈ Confirmer ma réponse" data-zh="✈ 确认回复">✈ Confirmer ma réponse</button>
+   <div class="form-status" id="rsvp-status"></div>
+  </form>
  </div>
 </section>
 
@@ -314,11 +323,60 @@
 
   let guests = 1;
   const guestEl = document.getElementById('guestCount');
-  document.querySelectorAll('.counter button').forEach((btn,i)=>{
+  const guestValueEl = document.getElementById('guestCount-value');
+  document.getElementById('guestMinus').addEventListener('click', ()=>{
+    guests = Math.max(1, guests-1);
+    guestEl.textContent = guests;
+    guestValueEl.value = guests;
+  });
+  document.getElementById('guestPlus').addEventListener('click', ()=>{
+    guests = guests+1;
+    guestEl.textContent = guests;
+    guestValueEl.value = guests;
+  });
+
+  // Choix Oui / Non cliquables
+  const presenceInput = document.getElementById('presence-value');
+  const submitBtn = document.getElementById('rsvp-submit');
+  const nameInput = document.querySelector('#rsvp-form input[name="entry.89788213"]');
+  function checkReady(){
+    submitBtn.disabled = !(presenceInput.value && nameInput.value.trim());
+  }
+  document.querySelectorAll('.rsvp-btn[data-choice]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      guests = i===0 ? Math.max(1, guests-1) : guests+1;
-      guestEl.textContent = guests;
+      document.querySelectorAll('.rsvp-btn[data-choice]').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      presenceInput.value = btn.getAttribute('data-choice');
+      checkReady();
     });
+  });
+  nameInput.addEventListener('input', checkReady);
+
+  // Envoi du formulaire (Google Forms)
+  const form = document.getElementById('rsvp-form');
+  const statusEl = document.getElementById('rsvp-status');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    submitBtn.disabled = true;
+    statusEl.textContent = '';
+    try{
+      await fetch(form.action, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new FormData(form)
+      });
+      // Google Forms ne renvoie pas de statut lisible en no-cors :
+      // l'absence d'erreur réseau signifie que la requête est partie correctement.
+      statusEl.textContent = document.documentElement.lang === 'zh-Hans' ? '已收到您的回复，谢谢！' : 'Réponse bien reçue, merci !';
+      statusEl.className = 'form-status ok';
+      form.reset();
+      document.querySelectorAll('.rsvp-btn[data-choice]').forEach(b=>b.classList.remove('selected'));
+      guests = 1; guestEl.textContent = 1; guestValueEl.value = 1;
+    } catch(err){
+      statusEl.textContent = document.documentElement.lang === 'zh-Hans' ? '发送失败，请重试。' : "Échec de l'envoi, réessayez.";
+      statusEl.className = 'form-status err';
+      submitBtn.disabled = false;
+    }
   });
 
   function setLang(lang){
