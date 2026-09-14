@@ -137,18 +137,14 @@
   #maps{ text-align:center; padding:10px 28px 24px; }
   #maps h2{ font-family:'Heiti SC','STHeiti','Heiti TC','PingFang SC',sans-serif; font-weight:600; font-size:24px; color:var(--red-deep); margin-bottom:12px; }
   .map-preview{
-    position:relative; width:100%; height:200px; border-radius:10px; overflow:hidden;
+    position:relative; width:100%; height:220px; border-radius:10px; overflow:hidden;
     box-shadow:0 4px 14px rgba(0,0,0,.1);
-    background:
-      repeating-linear-gradient(0deg, #e9ddc6 0 2px, transparent 2px 26px),
-      repeating-linear-gradient(90deg, #e9ddc6 0 2px, transparent 2px 26px),
-      var(--blue-lighter);
-    display:flex; align-items:center; justify-content:center;
+    background: url('img/map.jpg') center/cover no-repeat;
+    display:flex; align-items:flex-end; justify-content:center;
     text-decoration:none;
   }
-  .map-preview .pin{ font-size:32px; color: var(--red-deep); }
   .map-preview .badge{
-    position:absolute; bottom:12px; left:50%; transform:translateX(-50%);
+    margin-bottom:12px;
     background: var(--ink); color:#fff; font-size:12px; padding:8px 16px; border-radius:18px;
     display:flex; align-items:center; gap:6px; white-space:nowrap;
   }
@@ -290,7 +286,6 @@
  <div class="neon-frame">
   <h2 data-fr="Le lieu" data-zh="活动地点">Le lieu</h2>
   <a class="map-preview" href="https://www.google.com/maps/search/?api=1&query=120+Rue+du+Faubourg+du+Temple+75011+Paris" target="_blank">
-    <span class="pin">📍</span>
     <span class="badge">📍 <span data-fr="Ouvrir dans Google Maps" data-zh="在谷歌地图中打开">Ouvrir dans Google Maps</span></span>
   </a>
  </div>
