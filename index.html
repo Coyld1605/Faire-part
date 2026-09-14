@@ -46,16 +46,30 @@
     cursor:pointer; backdrop-filter: blur(4px);
   }
 
-  .photo-section{ padding:0; }
+  .photo-section{ padding:0; position:relative; z-index:1; }
   .photo-section img{
     width:100%; height:auto; display:block;
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 110px, black calc(100% - 110px), transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0, black 110px, black calc(100% - 110px), transparent 100%);
   }
 
+  /* Chevauchement des sections texte sur 20% (hauteur) des photos F1/F2/F7 — ratio photo 2:3 donc 20% hauteur = ~30% largeur */
+  #title{ position:relative; z-index:2; margin-bottom:-30%; }
+  #date-lieu{ margin-top:-30%; }
+  #countdown{ position:relative; z-index:2; margin-bottom:-30%; }
+  #rsvp{ margin-top:-30%; }
+  #thanks{ position:relative; z-index:2; margin-bottom:-30%; }
+
   /* ===== Titre, collé à la photo F1 ===== */
   #title{ padding:26px 28px 10px; text-align:center; }
   #title h1{ font-size:32px; color:var(--red-deep); line-height:1.25; margin-bottom:14px; }
+  #title h1 .zh-perm{
+    display:block;
+    font-family:'LiSu','STLiti','华文隶书','Baoli SC',serif;
+    font-size:46px;
+    color: var(--red-deep);
+    margin-bottom:8px;
+  }
   #title h1 .l1{ display:block; font-size:26px; letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
   #title h1 .l2{ display:block; font-size:25.6px; }
   .lang-row{ display:flex; gap:10px; justify-content:center; }
@@ -163,7 +177,8 @@
 
 <section id="title">
   <h1 class="script">
-    <span class="l1" data-fr="Fiançailles" data-zh="订婚">Fiançailles</span>
+    <span class="zh-perm">订婚</span>
+    <span class="l1" data-fr="Fiançailles">Fiançailles</span>
     <span class="l2" data-fr="Martine &amp; Félix" data-zh="Martine 与 Félix">Martine &amp; Félix</span>
   </h1>
   <div class="lang-row">
@@ -193,6 +208,10 @@
       <div class="cd-item"><div class="cd-num" id="cd-s">--</div><div class="cd-label" data-fr="SECONDES" data-zh="秒">SECONDES</div></div>
     </div>
   </div>
+</section>
+
+<section class="photo-section" id="photo-f2">
+  <img src="img/F2.jpg" loading="lazy" alt="Martine et Félix">
 </section>
 
 <section id="rsvp">
@@ -228,10 +247,6 @@
   </div>
   <button class="submit-btn" data-fr="✈ Confirmer ma réponse" data-zh="✈ 确认回复">✈ Confirmer ma réponse</button>
  </div>
-</section>
-
-<section class="photo-section">
-  <img src="img/F2.jpg" loading="lazy" alt="Martine et Félix">
 </section>
 
 <section id="calendar">
