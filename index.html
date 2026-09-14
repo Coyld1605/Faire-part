@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martine &amp; Félix — 14 novembre 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+  :root{
+    --blue-light: #B79B63;
+    --blue-lighter: #C9B285;
+    --blue-pale: #E9DDC5;
+    --red-deep: #A8541A;
+    --red-mid: #8C4014;
+    --cream: #E9DDC5;
+    --ink: #2C2116;
+    --neon: #E8791D;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{
+    font-family: 'Heiti SC', 'STHeiti', 'Heiti TC', 'PingFang SC', sans-serif;
+    color: var(--ink);
+  }
+  body{
+    scroll-behavior:smooth;
+    background: linear-gradient(180deg, var(--blue-light) 0%, var(--blue-lighter) 25%, var(--cream) 55%, var(--cream) 100%);
+  }
+  .wrap{ max-width:480px; margin:0 auto; }
+  section{
+    width:100%;
+    max-width:480px;
+    margin:0 auto;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:22px 28px;
+  }
+  .script{ font-family:'Heiti SC', 'STHeiti', 'Heiti TC', 'PingFang SC', sans-serif; font-weight:600; letter-spacing:.5px; }
+
+  #music-toggle{
+    position:fixed; top:16px; right:16px; z-index:999;
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(35,48,62,.85); color:#fff; border:1px solid rgba(255,255,255,.4);
+    font-size:18px; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; backdrop-filter: blur(4px);
+  }
+
+  .photo-section{ padding:0; position:relative; z-index:1; }
+  .photo-section img{
+    width:100%; height:auto; display:block;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 110px, black calc(100% - 110px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, black 110px, black calc(100% - 110px), transparent 100%);
+  }
+
+  /* Chevauchement des sections texte sur 20% (hauteur) des photos F1/F2/F7 — ratio photo 2:3 donc 20% hauteur = ~30% largeur */
+  #title{ position:relative; z-index:2; margin-bottom:-30%; }
+  #date-lieu{ margin-top:-30%; }
+  #countdown{ position:relative; z-index:2; margin-bottom:-30%; }
+  #rsvp{ margin-top:-30%; }
+  #thanks{ position:relative; z-index:2; margin-bottom:-30%; }
+
+  /* ===== Titre, collé à la photo F1 ===== */
+  #title{ padding:26px 28px 10px; text-align:center; }
+  #title h1{ font-size:32px; color:var(--red-deep); line-height:1.25; margin-bottom:14px; }
+  #title h1 .zh-perm{
+    display:block;
+    font-family:'LiSu','STLiti','华文隶书','Baoli SC',serif;
+    font-size:46px;
+    color: var(--red-deep);
+    margin-bottom:8px;
+  }
+  #title h1 .l1{ display:block; font-size:26px; letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
+  #title h1 .l2{ display:block; font-size:25.6px; }
+  .lang-row{ display:flex; gap:10px; justify-content:center; }
+  .lang-btn{
+    display:flex; align-items:center; gap:6px; background:#fff; border:1px solid var(--blue-light);
+    border-radius:20px; padding:7px 14px; font-size:13px; color:var(--ink); cursor:pointer;
+  }
+  .lang-btn.active{ border-color: var(--red-deep); font-weight:bold; }
+
+  /* ===== Date + Lieu ensemble ===== */
+  #date-lieu{ text-align:center; padding:20px 28px; }
+  #date-lieu .main{ font-size:20px; font-weight:bold; margin-bottom:4px; }
+  #date-lieu .sub{ font-size:13px; color:#6b6259; margin-bottom:10px; }
+  #date-lieu .venue{ font-size:15px; font-weight:bold; }
+  #date-lieu .addr{ font-size:13px; color:#6b6259; }
+
+  /* ===== Compte à rebours en encadré ===== */
+  #countdown{ padding:8px 28px 20px; }
+  .cd-card{
+    width:100%; background:#fff; border:1px solid var(--blue-light); border-radius:14px;
+    padding:18px 16px; text-align:center; box-shadow:0 4px 14px rgba(35,48,62,.08);
+  }
+  .cd-card h2{ font-family:'Heiti SC','STHeiti','Heiti TC','PingFang SC',sans-serif; font-weight:600; font-size:22px; color:var(--red-deep); margin-bottom:14px; }
+  .cd-grid{ display:flex; gap:10px; justify-content:center; }
+  .cd-item{ text-align:center; }
+  .cd-num{ font-size:28px; color:var(--ink); }
+  .cd-label{ font-size:9px; letter-spacing:1.5px; color:#8a95a3; }
+
+  /* ===== RSVP ===== */
+  #rsvp{ text-align:left; align-items:stretch; padding:10px 28px 24px; }
+  #rsvp h2{ font-family:'Heiti SC','STHeiti','Heiti TC','PingFang SC',sans-serif; font-weight:600; font-size:28px; color:var(--red-deep); align-self:center; }
+  #rsvp .q{ align-self:center; font-size:13px; color:#6b6259; margin-bottom:16px; }
+  .rsvp-btn{ width:100%; padding:12px; border-radius:22px; font-size:14px; margin-bottom:8px; border:1px solid var(--red-deep); text-align:center; }
+  .rsvp-btn.yes{ background:var(--red-deep); color:#fff; border:none; }
+  .rsvp-btn.no{ background:transparent; color:var(--red-deep); }
+  .field{ margin-top:12px; }
+  .field label{ font-size:12px; color:#6b6259; display:block; margin-bottom:5px; }
+  .counter{ display:flex; align-items:center; gap:14px; }
+  .counter button{ width:30px; height:30px; border-radius:50%; border:1px solid var(--blue-light); background:#fff; font-size:15px; }
+  select, textarea, input[type="text"]{ width:100%; border:1px solid #ddd4c8; border-radius:8px; padding:9px; font-family:inherit; font-size:13px; background:#fff; }
+  .submit-btn{ margin-top:16px; background: var(--red-deep); color:#fff; border:none; padding:12px; border-radius:22px; font-size:14px; }
+
+  /* ===== Calendrier, colonnes régulières ===== */
+  #calendar{ text-align:center; padding:10px 28px 22px; }
+  #calendar h2{ font-family:'Heiti SC','STHeiti','Heiti TC','PingFang SC',sans-serif; font-weight:600; font-size:24px; color:var(--red-deep); margin-bottom:14px; }
+  .cal{ width:100%; border-collapse:collapse; table-layout:fixed; }
+  .cal th{ width:14.2857%; font-size:10px; color:#8a7f74; padding:5px 0; font-weight:normal; }
+  .cal td{ width:14.2857%; text-align:center; padding:6px 0; font-size:13px; color:var(--ink); }
+  .cal td.heart{ color:#fff; font-weight:bold; padding:2px 0; }
+  .cal td.heart .heart-wrap{ position:relative; display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; }
+  .cal td.heart svg{ position:absolute; top:0; left:0; width:28px; height:28px; }
+  .cal td.heart span{ position:relative; z-index:2; font-size:12px; }
+
+  /* ===== Cadre néon orangé ===== */
+  .neon-frame{
+    width:100%;
+    border:2px solid var(--neon);
+    border-radius:16px;
+    padding:20px 18px;
+    box-shadow:
+      0 0 6px var(--neon),
+      0 0 14px rgba(232,121,29,.55),
+      inset 0 0 8px rgba(232,121,29,.25);
+    background: rgba(255,255,255,.35);
+  }
+
+  /* ===== Galerie 2x2 ===== */
+  #gallery{ padding:10px 28px 22px; }
+  .gallery-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; width:100%; }
+  .gallery-grid .ph{ aspect-ratio:4/3; border-radius:8px; background-size:cover; background-position:center; }
+
+  /* ===== Carte Google Maps ===== */
+  #maps{ text-align:center; padding:10px 28px 24px; }
+  #maps h2{ font-family:'Heiti SC','STHeiti','Heiti TC','PingFang SC',sans-serif; font-weight:600; font-size:24px; color:var(--red-deep); margin-bottom:12px; }
+  .map-preview{
+    position:relative; width:100%; height:200px; border-radius:10px; overflow:hidden;
+    box-shadow:0 4px 14px rgba(0,0,0,.1);
+    background:
+      repeating-linear-gradient(0deg, #e9ddc6 0 2px, transparent 2px 26px),
+      repeating-linear-gradient(90deg, #e9ddc6 0 2px, transparent 2px 26px),
+      var(--blue-lighter);
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none;
+  }
+  .map-preview .pin{ font-size:32px; color: var(--red-deep); }
+  .map-preview .badge{
+    position:absolute; bottom:12px; left:50%; transform:translateX(-50%);
+    background: var(--ink); color:#fff; font-size:12px; padding:8px 16px; border-radius:18px;
+    display:flex; align-items:center; gap:6px; white-space:nowrap;
+  }
+
+  /* ===== Remerciement ===== */
+  #thanks{ text-align:center; padding:20px 28px 8px; }
+  #thanks .seal{ width:46px; height:46px; border-radius:50%; border:2px solid var(--red-mid); display:flex; align-items:center; justify-content:center; margin:0 auto 12px; color:var(--red-mid); font-size:18px; }
+  #thanks h1{ font-family:'Heiti SC','STHeiti','Heiti TC','PingFang SC',sans-serif; font-weight:600; font-size:28px; color:var(--red-deep); margin-bottom:4px; }
+  #thanks .date{ font-size:12px; letter-spacing:2px; color:#6b6259; margin-bottom:10px; }
+  #thanks .heart{ color:var(--red-mid); margin-bottom:12px; }
+  #thanks .bye{ font-family:'Heiti SC','STHeiti','Heiti TC','PingFang SC',sans-serif; font-weight:600; font-size:18px; color:var(--red-deep); }
+</style>
+</head>
+<body>
+
+<button id="music-toggle" title="Musique">🔇</button>
+<audio id="bg-music" src="musique.mp3" loop></audio>
+
+<section id="title">
+  <h1 class="script">
+    <span class="zh-perm">订婚</span>
+    <span class="l1" data-fr="Fiançailles">Fiançailles</span>
+    <span class="l2" data-fr="Martine &amp; Félix" data-zh="Martine 与 Félix">Martine &amp; Félix</span>
+  </h1>
+  <div class="lang-row">
+    <div class="lang-btn active" data-lang="fr">🇫🇷 Français</div>
+    <div class="lang-btn" data-lang="zh">🇨🇳 中文</div>
+  </div>
+</section>
+
+<section class="photo-section">
+  <img src="img/F1.jpg" alt="Martine et Félix">
+</section>
+
+<section id="date-lieu">
+  <div class="main" data-fr="14 novembre 2026" data-zh="2026年11月14日">14 novembre 2026</div>
+  <div class="sub" data-fr="à partir de 12h00" data-zh="12:00 开始">à partir de 12h00</div>
+  <div class="venue">Restaurant Le Président</div>
+  <div class="addr">120 Rue du Faubourg du Temple, 75011 Paris</div>
+</section>
+
+<section id="countdown">
+  <div class="cd-card">
+    <h2 data-fr="Compte à rebours" data-zh="倒计时">Compte à rebours</h2>
+    <div class="cd-grid">
+      <div class="cd-item"><div class="cd-num" id="cd-d">--</div><div class="cd-label" data-fr="JOURS" data-zh="天">JOURS</div></div>
+      <div class="cd-item"><div class="cd-num" id="cd-h">--</div><div class="cd-label" data-fr="HEURES" data-zh="小时">HEURES</div></div>
+      <div class="cd-item"><div class="cd-num" id="cd-m">--</div><div class="cd-label" data-fr="MINUTES" data-zh="分钟">MINUTES</div></div>
+      <div class="cd-item"><div class="cd-num" id="cd-s">--</div><div class="cd-label" data-fr="SECONDES" data-zh="秒">SECONDES</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="photo-section" id="photo-f2">
+  <img src="img/F2.jpg" loading="lazy" alt="Martine et Félix">
+</section>
+
+<section id="rsvp">
+ <div class="neon-frame">
+  <h2>RSVP</h2>
+  <div class="q" data-fr="Serez-vous des nôtres ?" data-zh="您会出席吗？">Serez-vous des nôtres ?</div>
+  <div class="rsvp-btn yes" data-fr="✓ Oui, avec plaisir !" data-zh="✓ 好的，我很乐意！">✓ Oui, avec plaisir !</div>
+  <div class="rsvp-btn no" data-fr="✕ Non, malheureusement" data-zh="✕ 很遗憾，不能出席">✕ Non, malheureusement</div>
+  <div class="field">
+    <label data-fr="Nom et prénom" data-zh="姓名">Nom et prénom</label>
+    <input type="text" data-fr-ph="Votre nom et prénom" data-zh-ph="您的姓名" placeholder="Votre nom et prénom">
+  </div>
+  <div class="field">
+    <label data-fr="Nombre d'invités" data-zh="宾客人数">Nombre d'invités</label>
+    <div class="counter">
+      <button type="button">−</button>
+      <span id="guestCount">1</span>
+      <button type="button">+</button>
+    </div>
+  </div>
+  <div class="field">
+    <label data-fr="Régime alimentaire" data-zh="饮食要求">Régime alimentaire</label>
+    <select>
+      <option selected data-fr="Aucune" data-zh="无">Aucune</option>
+      <option data-fr="Vegan" data-zh="纯素食">Vegan</option>
+      <option data-fr="Sans gluten" data-zh="无麸质">Sans gluten</option>
+      <option data-fr="Allergie, à préciser ci-dessous" data-zh="过敏，请在下方注明">Allergie, à préciser ci-dessous</option>
+    </select>
+  </div>
+  <div class="field">
+    <label data-fr="Un petit mot ?" data-zh="留言">Un petit mot ?</label>
+    <textarea rows="3" data-fr-ph="Laissez-nous un message…" data-zh-ph="给我们留言…" placeholder="Laissez-nous un message…"></textarea>
+  </div>
+  <button class="submit-btn" data-fr="✈ Confirmer ma réponse" data-zh="✈ 确认回复">✈ Confirmer ma réponse</button>
+ </div>
+</section>
+
+<section id="calendar">
+ <div class="neon-frame">
+  <h2 data-fr="Novembre 2026" data-zh="2026年11月">Novembre 2026</h2>
+  <table class="cal">
+    <thead>
+      <tr>
+        <th data-fr="L" data-zh="一">L</th><th data-fr="M" data-zh="二">M</th><th data-fr="M" data-zh="三">M</th>
+        <th data-fr="J" data-zh="四">J</th><th data-fr="V" data-zh="五">V</th><th data-fr="S" data-zh="六">S</th><th data-fr="D" data-zh="日">D</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td>1</td></tr>
+      <tr><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+      <tr><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td>
+        <td class="heart">
+          <span class="heart-wrap">
+            <svg viewBox="0 0 34 34"><path d="M17 29 C6 21 2 15 2 10 C2 5 6 2 10 2 C13 2 16 4 17 7 C18 4 21 2 24 2 C28 2 32 5 32 10 C32 15 28 21 17 29 Z" fill="#A8541A"/></svg>
+            <span>14</span>
+          </span>
+        </td>
+        <td>15</td>
+      </tr>
+      <tr><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td></tr>
+      <tr><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td></tr>
+      <tr><td>30</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+ </div>
+</section>
+
+<section id="gallery">
+  <div class="gallery-grid">
+    <div class="ph" style="background-image:url('img/F3.jpg')"></div>
+    <div class="ph" style="background-image:url('img/F4.jpg')"></div>
+    <div class="ph" style="background-image:url('img/F5.jpg')"></div>
+    <div class="ph" style="background-image:url('img/F6.jpg')"></div>
+  </div>
+</section>
+
+<section id="maps">
+ <div class="neon-frame">
+  <h2 data-fr="Le lieu" data-zh="活动地点">Le lieu</h2>
+  <a class="map-preview" href="https://www.google.com/maps/search/?api=1&query=120+Rue+du+Faubourg+du+Temple+75011+Paris" target="_blank">
+    <span class="pin">📍</span>
+    <span class="badge">📍 <span data-fr="Ouvrir dans Google Maps" data-zh="在谷歌地图中打开">Ouvrir dans Google Maps</span></span>
+  </a>
+ </div>
+</section>
+
+<section id="thanks">
+  <div class="seal">囍</div>
+  <h1 class="script" data-fr="Martine et Félix" data-zh="Martine 与 Félix">Martine et Félix</h1>
+</section>
+
+<section class="photo-section">
+  <img src="img/F7.jpg" loading="lazy" alt="Martine et Félix">
+</section>
+
+<script>
+  const target = new Date("2026-11-14T12:00:00+01:00").getTime();
+  function tick(){
+    const now = Date.now();
+    let diff = Math.max(0, target - now);
+    const d = Math.floor(diff / 86400000); diff -= d*86400000;
+    const h = Math.floor(diff / 3600000); diff -= h*3600000;
+    const m = Math.floor(diff / 60000); diff -= m*60000;
+    const s = Math.floor(diff / 1000);
+    document.getElementById('cd-d').textContent = d;
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+
+  let guests = 1;
+  const guestEl = document.getElementById('guestCount');
+  document.querySelectorAll('.counter button').forEach((btn,i)=>{
+    btn.addEventListener('click', ()=>{
+      guests = i===0 ? Math.max(1, guests-1) : guests+1;
+      guestEl.textContent = guests;
+    });
+  });
+
+  function setLang(lang){
+    document.querySelectorAll('[data-fr]').forEach(el=>{
+      el.textContent = lang === 'zh' ? (el.getAttribute('data-zh') || el.getAttribute('data-fr')) : el.getAttribute('data-fr');
+    });
+    document.querySelectorAll('[data-fr-ph]').forEach(el=>{
+      el.setAttribute('placeholder', lang === 'zh' ? (el.getAttribute('data-zh-ph') || el.getAttribute('data-fr-ph')) : el.getAttribute('data-fr-ph'));
+    });
+    document.documentElement.lang = lang === 'zh' ? 'zh-Hans' : 'fr';
+    document.querySelectorAll('.lang-btn').forEach(btn=>{
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+  }
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> setLang(btn.getAttribute('data-lang')));
+  });
+
+  const audio = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-toggle');
+  let musicOn = false;
+  musicBtn.addEventListener('click', ()=>{
+    musicOn = !musicOn;
+    if(musicOn){
+      audio.play().catch(()=>{ musicOn = false; musicBtn.textContent = '🔇'; });
+      musicBtn.textContent = '🔊';
+    } else {
+      audio.pause();
+      musicBtn.textContent = '🔇';
+    }
+  });
+</script>
+
+</body>
+</html>
