@@ -8,12 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   :root{
-    --blue-light: #D2BD91;
-    --blue-lighter: #E3D2AE;
-    --blue-pale: #F0E6D2;
+    --blue-light: #B07A35;
+    --blue-lighter: #C4924D;
+    --blue-pale: #DDB579;
     --red-deep: #C1401A;
     --red-mid: #A33314;
-    --cream: #F3EADA;
+    --cream: #D9B87F;
     --ink: #2C2116;
     --neon: #E8791D;
   }
@@ -61,8 +61,9 @@
   #title h1 .zh-perm{
     display:block;
     font-family:'Ma Shan Zheng', cursive;
-    font-size: clamp(160px, 100vw, 400px);
-    line-height:.95;
+    font-size: clamp(90px, 46vw, 220px);
+    white-space: nowrap;
+    line-height:1;
     color: var(--red-deep);
     margin-bottom:0px;
   }
@@ -77,16 +78,16 @@
   .lang-btn.active{ border-color: var(--red-deep); font-weight:bold; }
 
   /* ===== Date + Lieu ensemble ===== */
-  #date-lieu{ text-align:center; padding:20px 28px; }
-  #date-lieu .main{ font-size:20px; font-weight:bold; margin-bottom:4px; }
-  #date-lieu .sub{ font-size:13px; color:#6b6259; margin-bottom:10px; }
-  #date-lieu .venue{ font-size:15px; font-weight:bold; }
-  #date-lieu .addr{ font-size:13px; color:#6b6259; }
+  #date-lieu{ text-align:center; padding:20px 28px; color: var(--red-deep); }
+  #date-lieu .main{ font-size:20px; font-weight:bold; margin-bottom:4px; color: var(--red-deep); }
+  #date-lieu .sub{ font-size:13px; color: var(--red-mid); margin-bottom:10px; }
+  #date-lieu .venue{ font-size:15px; font-weight:bold; color: var(--red-deep); }
+  #date-lieu .addr{ font-size:13px; color: var(--red-mid); }
 
   /* ===== Compte à rebours en encadré ===== */
   #countdown{ padding:8px 28px 20px; background: var(--cream); }
   .cd-card{
-    width:100%; background:#fff; border:1px solid var(--blue-light); border-radius:14px;
+    width:100%; background: var(--cream); border:1px solid var(--red-deep); border-radius:14px;
     padding:18px 16px; text-align:center; box-shadow:0 4px 14px rgba(35,48,62,.08);
   }
   .cd-card h2{ font-family:'Heiti SC','STHeiti','Heiti TC','PingFang SC',sans-serif; font-weight:600; font-size:22px; color:var(--red-deep); margin-bottom:14px; }
@@ -296,7 +297,6 @@
 
 <section id="thanks">
   <div class="seal">囍</div>
-  <h1 class="script" data-fr="Martine et Félix" data-zh="Martine 与 Félix">Martine et Félix</h1>
 </section>
 
 <section class="photo-section">
