@@ -54,6 +54,10 @@
     -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.4) 90px, black 190px, black calc(100% - 190px), rgba(0,0,0,.4) calc(100% - 90px), transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.4) 90px, black 190px, black calc(100% - 190px), rgba(0,0,0,.4) calc(100% - 90px), transparent 100%);
   }
+  .photo-last img{
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.4) 90px, black 190px, black 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.4) 90px, black 190px, black 100%);
+  }
 
   /* ===== Titre, collé à la photo F1 ===== */
   #title{ padding:26px 28px 10px; text-align:center; }
@@ -61,7 +65,7 @@
   #title h1 .zh-perm{
     display:block;
     font-family:'Ma Shan Zheng', cursive;
-    font-size: clamp(81px, 41.4vw, 198px);
+    font-size: 130px;
     white-space: nowrap;
     line-height:1;
     color: var(--red-deep);
@@ -299,7 +303,7 @@
   <div class="seal">囍</div>
 </section>
 
-<section class="photo-section">
+<section class="photo-section photo-last">
   <img src="img/F7.jpg" loading="lazy" alt="Martine et Félix">
 </section>
 
