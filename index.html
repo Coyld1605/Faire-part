@@ -7,12 +7,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <style>
   :root{
-    --blue-light: #D2BD91;
-    --blue-lighter: #E3D2AE;
-    --blue-pale: #F0E6D2;
+    --blue-light: #B79B63;
+    --blue-lighter: #C9B285;
+    --blue-pale: #E9DDC5;
     --red-deep: #A8541A;
     --red-mid: #8C4014;
-    --cream: #F3EADA;
+    --cream: #E9DDC5;
     --ink: #2C2116;
     --neon: #E8791D;
   }
@@ -49,15 +49,15 @@
   .photo-section{ padding:0; }
   .photo-section img{
     width:100%; height:auto; display:block;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 46px, black calc(100% - 46px), transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0, black 46px, black calc(100% - 46px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 110px, black calc(100% - 110px), transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0, black 110px, black calc(100% - 110px), transparent 100%);
   }
 
   /* ===== Titre, collé à la photo F1 ===== */
   #title{ padding:26px 28px 10px; text-align:center; }
   #title h1{ font-size:32px; color:var(--red-deep); line-height:1.25; margin-bottom:14px; }
-  #title h1 .l1{ display:block; font-size:20px; letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
-  #title h1 .l2{ display:block; }
+  #title h1 .l1{ display:block; font-size:26px; letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
+  #title h1 .l2{ display:block; font-size:25.6px; }
   .lang-row{ display:flex; gap:10px; justify-content:center; }
   .lang-btn{
     display:flex; align-items:center; gap:6px; background:#fff; border:1px solid var(--blue-light);
@@ -164,7 +164,7 @@
 <section id="title">
   <h1 class="script">
     <span class="l1" data-fr="Fiançailles" data-zh="订婚">Fiançailles</span>
-    <span class="l2" data-fr="Martine et Félix" data-zh="Martine 与 Félix">Martine et Félix</span>
+    <span class="l2" data-fr="Martine &amp; Félix" data-zh="Martine 与 Félix">Martine &amp; Félix</span>
   </h1>
   <div class="lang-row">
     <div class="lang-btn active" data-lang="fr">🇫🇷 Français</div>
